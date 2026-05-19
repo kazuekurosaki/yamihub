@@ -54,7 +54,7 @@ function renderGrid(dataToRender = null) {
 
     container.innerHTML = limited.map(post => `
         <div class="post-card glass fade-in">
-            <a href="detail.html?id=${post.id}">
+            <a href="/detail.html?id=${post.id}">
                 <div class="relative">
                     <img src="${post.cover}" alt="${post.title}" loading="lazy">
                     <div class="play-overlay">
