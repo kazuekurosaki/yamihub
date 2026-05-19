@@ -1,85 +1,106 @@
 /**
- * YAMIHUB ENGINE
- * Logic: Theme, NSFW Toggle, Search, Pagination, and Data Fetching
+ * YAMIHUB ENGINE - GitHub Pages Ready
  */
 
 let allPosts = [];
-let currentLimit = 10; // Untuk Pagination Unlimited
+let currentLimit = 10; 
 
-// 1. Load Header & Footer secara Otomatis
+// 1. Path & Navigation Fixer (Menangani Error 404 GitHub Pages)
+function getBasePath() {
+    const path = window.location.pathname;
+    // Jika kita di dalam folder 'pages', kita butuh '../' untuk kembali ke root
+    return path.includes('/pages/') ? '../' : './';
+}
+
 async function injectIncludes() {
-    const headerPlaceholder = document.getElementById('header-placeholder');
-    const footerPlaceholder = document.getElementById('footer-placeholder');
+    const base = getBasePath();
+    const headers = document.querySelectorAll('#header-placeholder');
+    const footers = document.querySelectorAll('#footer-placeholder');
 
-    if (headerPlaceholder) {
-        const res = await fetch('includes/header.html');
-        headerPlaceholder.innerHTML = await res.text();
-        updateNSFWButton(); // Update teks tombol NSFW setelah header masuk
+    if (headers.length > 0) {
+        const res = await fetch(`${base}includes/header.html`);
+        const html = await res.text();
+        headers.forEach(el => {
+            el.innerHTML = html;
+            // Perbaiki link di dalam header yang baru saja di-inject
+            el.querySelectorAll('a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                    link.setAttribute('href', base + href);
+                }
+            });
+        });
+        updateNSFWButton();
     }
-    if (footerPlaceholder) {
-        const res = await fetch('includes/footer.html');
-        footerPlaceholder.innerHTML = await res.text();
+
+    if (footers.length > 0) {
+        const res = await fetch(`${base}includes/footer.html`);
+        const html = await res.text();
+        footers.forEach(el => {
+            el.innerHTML = html;
+            el.querySelectorAll('a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                    link.setAttribute('href', base + href);
+                }
+            });
+        });
     }
 }
 
-// 2. Data Master Fetcher
+// 2. Data Fetcher
 async function fetchData() {
     try {
-        const response = await fetch('data/post.json');
+        const base = getBasePath();
+        const response = await fetch(`${base}data/post.json`);
         allPosts = await response.json();
         
-        // Cek halaman apa yang sedang dibuka
-        const path = window.location.pathname;
-        if (path.includes('index.html') || path === '/' || path.includes('yamihub/')) {
-            renderGrid();
-        }
+        // Cek fungsi inisialisasi di halaman masing-masing
+        if (typeof initPage === 'function') initPage();
+        else if (document.getElementById('post-grid')) renderGrid();
+        
     } catch (error) {
-        console.error("Gagal memuat data JSON:", error);
+        console.error("Data Load Error:", error);
     }
 }
 
-// 3. Render Card Video (Reusable)
+// 3. Render Card System
 function renderGrid(dataToRender = null) {
     const container = document.getElementById('post-grid');
     if (!container) return;
 
+    const base = getBasePath();
     const isNSFW = localStorage.getItem('mode-nsfw') === 'true';
     const source = dataToRender || allPosts;
     
-    // Filter SFW/NSFW
     const filtered = source.filter(post => isNSFW ? true : post.type === 'SFW');
-    
-    // Pagination Slice
     const limited = filtered.slice(0, currentLimit);
 
     container.innerHTML = limited.map(post => `
-        <div class="post-card glass fade-in">
-            <a href="/detail.html?id=${post.id}">
+        <div class="post-card glass fade-in shadow-xl">
+            <a href="${base}detail.html?id=${post.id}">
                 <div class="relative">
-                    <img src="${post.cover}" alt="${post.title}" loading="lazy">
+                    <img src="${post.cover}" alt="${post.title}" loading="lazy" onerror="this.src='${base}src/no-cover.jpg'">
                     <div class="play-overlay">
                         <div class="play-icon">▶</div>
                     </div>
                 </div>
                 <div class="p-3">
-                    <h3 class="text-xs font-semibold line-clamp-2 h-8 leading-tight">${post.title}</h3>
+                    <h3 class="text-[11px] font-bold line-clamp-2 h-8 leading-tight uppercase tracking-tighter">${post.title}</h3>
                     <div class="flex justify-between items-center mt-2">
-                        <span class="text-[10px] text-amber-500 font-bold">★ ${post.rating}</span>
-                        <span class="badge-hd">${post.quality}</span>
+                        <span class="text-[10px] text-amber-500 font-black">★ ${post.rating}</span>
+                        <span class="badge-hd text-[9px]">${post.quality}</span>
                     </div>
                 </div>
             </a>
         </div>
     `).join('');
 
-    // Sembunyikan tombol Load More jika data habis
     const loadMoreBtn = document.getElementById('load-more-btn');
-    if (loadMoreBtn) {
-        loadMoreBtn.style.display = currentLimit >= filtered.length ? 'none' : 'block';
-    }
+    if (loadMoreBtn) loadMoreBtn.style.display = currentLimit >= filtered.length ? 'none' : 'block';
 }
 
-// 4. Fitur Search
+// 4. Engine Fitur (Search, Bookmark, Toggles)
 function searchEngine(query) {
     const q = query.toLowerCase();
     const results = allPosts.filter(p => 
@@ -90,51 +111,48 @@ function searchEngine(query) {
     renderGrid(results);
 }
 
-// 5. Toggle Fitur (Theme & NSFW)
 function toggleTheme() {
     const isDark = document.body.classList.contains('dark-mode');
-    document.body.classList.toggle('dark-mode', !isDark);
-    document.body.classList.toggle('light-mode', isDark);
-    localStorage.setItem('theme', isDark ? 'light-mode' : 'dark-mode');
+    const newTheme = isDark ? 'light-mode' : 'dark-mode';
+    document.body.className = newTheme;
+    localStorage.setItem('theme', newTheme);
 }
 
 function toggleNSFW() {
     const nsfw = localStorage.getItem('mode-nsfw') === 'true';
     localStorage.setItem('mode-nsfw', !nsfw);
-    location.reload(); // Reload untuk apply filter
+    location.reload();
 }
 
 function updateNSFWButton() {
     const btn = document.getElementById('nsfw-indicator');
     if (!btn) return;
     const isNSFW = localStorage.getItem('mode-nsfw') === 'true';
-    btn.innerText = isNSFW ? "MODE: NSFW" : "MODE: SFW";
-    btn.className = isNSFW ? "text-[10px] px-3 py-1.5 rounded-full font-bold bg-rose-600 text-white" : "text-[10px] px-3 py-1.5 rounded-full font-bold bg-emerald-600 text-white";
+    btn.innerText = isNSFW ? "NSFW: ON" : "NSFW: OFF";
+    btn.className = isNSFW ? "text-[9px] px-2 py-1.5 rounded-full font-black bg-rose-600 text-white shadow-rose-900/40" : "text-[9px] px-2 py-1.5 rounded-full font-black bg-slate-700 text-white";
 }
 
-// 6. UI Toggles
-function toggleMobileMenu() {
-    document.getElementById('mobile-menu').classList.toggle('hidden');
+function toggleBookmark(id) {
+    let favs = JSON.parse(localStorage.getItem('yamihub_fav')) || [];
+    const idx = favs.indexOf(id);
+    if (idx === -1) favs.push(id);
+    else favs.splice(idx, 1);
+    localStorage.setItem('yamihub_fav', JSON.stringify(favs));
+    location.reload();
 }
 
-function toggleSearch() {
+// 5. UI Helpers
+function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+function toggleSearch() { 
     const box = document.getElementById('search-overlay');
     box.classList.toggle('hidden');
     if (!box.classList.contains('hidden')) document.getElementById('main-search').focus();
 }
 
-// 7. Load More Function
-function loadMore() {
-    currentLimit += 10;
-    renderGrid();
-}
-
-// 8. Inisialisasi Saat Load
+// 6. Inisialisasi
 document.addEventListener('DOMContentLoaded', () => {
-    // Apply Theme
     const savedTheme = localStorage.getItem('theme') || 'dark-mode';
-    document.body.classList.add(savedTheme);
-
+    document.body.className = savedTheme;
     injectIncludes();
     fetchData();
 });
