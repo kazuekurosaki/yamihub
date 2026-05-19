@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>YamiHub - Nonton Streaming Film & Video Premium</title>
+    <meta name="description" content="YamiHub adalah platform streaming video premium dengan tampilan modern Glassmorphism. Tersedia berbagai genre film, list artis, dan daftar negara terlengkap.">
+    <meta name="keywords" content="streaming, nonton film, glassmorphism, yamihub, video player">
+    <meta name="author" content="YamiHub Team">
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dark-mode">
+
+    <!-- Header Injection -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section (Optional) -->
+    <section class="container mx-auto px-4 mt-8">
+        <div class="glass p-8 text-center md:text-left md:flex items-center justify-between overflow-hidden relative">
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-rose-600 mb-2">SELAMAT DATANG!</h2>
+                <p class="text-sm opacity-70 max-w-md">Nikmati ribuan konten streaming eksklusif dengan kualitas HD dan akses super cepat.</p>
+            </div>
+            <div class="absolute right-0 top-0 opacity-10 pointer-events-none">
+                <svg width="400" height="400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content: Video Grid -->
+    <main class="container mx-auto px-4 mt-10">
+        <div class="flex items-center justify-between mb-6 border-l-4 border-rose-600 pl-4">
+            <h2 class="text-xl font-bold tracking-tight uppercase">Update Terbaru</h2>
+            <span class="text-[10px] opacity-50 uppercase">Auto Updated</span>
+        </div>
+
+        <!-- Grid Video -->
+        <div id="post-grid" class="post-grid">
+            <!-- Konten diisi otomatis oleh js/main.js -->
+        </div>
+
+        <!-- Unlimited Pagination Button -->
+        <div class="text-center mt-12 mb-20">
+            <button id="load-more-btn" onclick="loadMore()" class="px-10 py-3 glass bg-rose-600/20 border-rose-600/30 text-rose-500 rounded-full font-bold hover:bg-rose-600 hover:text-white transition-all shadow-xl">
+                LOAD MORE CONTENT
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer Injection -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+</body>
+</html>
