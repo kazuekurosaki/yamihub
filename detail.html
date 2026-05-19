@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Video - YamiHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="dark-mode">
 
@@ -93,19 +93,19 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="/js/main.js"></script>
+    <script src="js/main.js"></script>
     <script>
         // Logika Pengambil Data untuk Detail
         async function renderDetail() {
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
             
-            const response = await fetch('/data/post.json');
+            const response = await fetch('data/post.json');
             const data = await response.json();
             const post = data.find(p => p.id == id);
 
             if (!post) {
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
                 return;
             }
 
@@ -124,8 +124,8 @@
             document.getElementById('det-country').innerText = post.country;
 
             // List Items (Genre & Stars)
-            document.getElementById('det-genre').innerHTML = post.genre.map(g => `<a href="/pages/genre.html?name=${g}" class="hover:underline">${g}</a>`).join(', ');
-            document.getElementById('det-artist').innerHTML = post.artist.map(a => `<a href="/pages/artist.html?name=${a}" class="hover:underline">${a}</a>`).join(', ');
+            document.getElementById('det-genre').innerHTML = post.genre.map(g => `<a href="pages/genre.html?name=${g}" class="hover:underline">${g}</a>`).join(', ');
+            document.getElementById('det-artist').innerHTML = post.artist.map(a => `<a href="pages/artist.html?name=${a}" class="hover:underline">${a}</a>`).join(', ');
 
             // Bookmark Button Toggle
             const favBtn = document.getElementById('det-fav-btn');
