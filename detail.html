@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Detail Video - YamiHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -11,82 +11,82 @@
 
     <div id="header-placeholder"></div>
 
-    <main class="container mx-auto max-w-2xl px-4 py-8">
-        <!-- Title Section -->
-        <div class="text-center mb-8">
-            <h1 id="det-title" class="text-xl md:text-2xl font-bold leading-tight mb-2"></h1>
-            <p class="text-[10px] opacity-60">
-                <span class="text-amber-500 font-bold">admin</span> • Updated On <span id="det-release-top"></span>
+    <main class="container mx-auto max-w-2xl px-4 py-10" id="detail-page">
+        <!-- 1. Judul & Meta -->
+        <div class="text-center mb-8 fade-in">
+            <h1 id="det-title" class="text-xl md:text-2xl font-black leading-tight uppercase tracking-tighter"></h1>
+            <p class="text-[10px] opacity-50 mt-2 uppercase tracking-widest">
+                <span class="text-amber-500 font-bold">Admin</span> • Updated: <span id="det-update-top"></span>
             </p>
         </div>
 
-        <!-- Poster Section -->
-        <div class="flex justify-center mb-8">
-            <div class="glass p-2 shadow-2xl rotate-1 hover:rotate-0 transition-transform duration-500">
-                <img id="det-cover" src="" class="w-64 md:w-72 rounded-lg shadow-lg object-cover">
+        <!-- 2. Poster Tengah -->
+        <div class="flex justify-center mb-8 fade-in">
+            <div class="glass p-2 shadow-2xl scale-95 hover:scale-100 transition duration-500">
+                <img id="det-cover" src="" class="w-60 md:w-72 rounded-lg shadow-lg object-cover">
             </div>
         </div>
 
-        <!-- Rating & Bookmark -->
-        <div class="text-center mb-10">
-            <div class="flex justify-center gap-1 text-amber-400 text-xl mb-1">
+        <!-- 3. Rating & Action -->
+        <div class="text-center mb-10 fade-in">
+            <div class="flex justify-center gap-1 text-amber-500 text-lg mb-1">
                 <span>★</span><span>★</span><span>★</span><span>★</span><span class="opacity-30">★</span>
             </div>
-            <p class="text-[11px] opacity-50 mb-4"><span id="det-rating"></span>/3253 votes</p>
+            <p class="text-[10px] opacity-40 mb-5 tracking-tighter"><span id="det-rating"></span>/3253 VOTES</p>
             
-            <button id="det-fav-btn" class="w-full bg-amber-700 hover:bg-amber-800 text-white py-2.5 rounded-md font-bold flex items-center justify-center gap-2 transition shadow-lg shadow-amber-900/20">
-                <span>🔖</span> Bookmark
+            <button id="det-fav-btn" class="w-full bg-amber-700 hover:bg-amber-600 text-white py-3 rounded-xl font-black text-[11px] tracking-widest uppercase flex items-center justify-center gap-2 transition shadow-xl shadow-amber-900/20">
+                <span>🔖</span> TAMBAHKAN KE BOOKMARK
             </button>
-            <p class="text-[9px] mt-2 opacity-40 uppercase tracking-widest">Followed by 5 members</p>
+            <p class="text-[8px] mt-2 opacity-30 uppercase tracking-[0.2em]">Followed by 5 members</p>
         </div>
 
-        <!-- Video Player -->
-        <div class="glass p-1 rounded-2xl mb-8 aspect-video overflow-hidden shadow-2xl shadow-rose-600/10">
-            <iframe id="det-video" class="w-full h-full rounded-xl" frameborder="0" allowfullscreen></iframe>
+        <!-- 4. Video Player Iframe -->
+        <div class="glass p-1.5 rounded-2xl mb-8 aspect-video overflow-hidden shadow-2xl shadow-rose-600/10 fade-in">
+            <iframe id="det-video" class="w-full h-full rounded-xl bg-black" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <!-- Description -->
-        <div class="mb-10 px-2">
-            <p id="det-desc" class="text-sm leading-relaxed opacity-80 text-justify"></p>
+        <!-- 5. Sinopsis/Deskripsi -->
+        <div class="mb-10 px-2 fade-in">
+            <p id="det-desc" class="text-[13px] leading-relaxed opacity-70 italic text-center"></p>
         </div>
 
-        <!-- Information Table (Sesuai Gambar) -->
-        <div class="glass overflow-hidden mb-12">
+        <!-- 6. Info Table (Sesuai Referensi Gambar) -->
+        <div class="glass overflow-hidden mb-16 fade-in shadow-xl">
             <table class="info-table">
                 <tr>
                     <td class="info-label">Genre:</td>
-                    <td id="det-genre" class="info-value text-amber-500 font-medium"></td>
+                    <td id="det-genre" class="info-value text-amber-500 font-bold uppercase text-[11px] tracking-tighter"></td>
                 </tr>
                 <tr>
                     <td class="info-label">Release:</td>
-                    <td id="det-release" class="info-value"></td>
+                    <td id="det-release" class="info-value uppercase text-[11px]"></td>
                 </tr>
                 <tr>
                     <td class="info-label">Stars:</td>
-                    <td id="det-artist" class="info-value text-amber-500 font-medium"></td>
+                    <td id="det-artist" class="info-value text-amber-500 font-bold uppercase text-[11px] tracking-tighter"></td>
                 </tr>
                 <tr>
                     <td class="info-label">Duration:</td>
-                    <td id="det-duration" class="info-value"></td>
+                    <td id="det-duration" class="info-value text-[11px]"></td>
                 </tr>
                 <tr>
                     <td class="info-label">Country:</td>
-                    <td id="det-country" class="info-value text-amber-500 font-medium"></td>
+                    <td id="det-country" class="info-value text-amber-500 font-bold uppercase text-[11px]"></td>
                 </tr>
                 <tr>
                     <td class="info-label">Quality:</td>
                     <td class="info-value">
-                        <span class="badge-hd text-[10px]">HD</span>
+                        <span class="badge-hd">HD</span>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <!-- Recommendations -->
-        <div class="border-t border-white/5 pt-8 mb-20">
-            <h3 class="text-sm font-bold mb-6 tracking-widest uppercase opacity-70">You May Also Like</h3>
+        <!-- 7. Rekomendasi Bawah -->
+        <div class="border-t border-white/5 pt-10 mb-20 fade-in">
+            <h3 class="text-[11px] font-black mb-6 tracking-[0.3em] uppercase opacity-40 text-center">You May Also Like</h3>
             <div id="related-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- Related posts by JS -->
+                <!-- Diisi oleh script di bawah -->
             </div>
         </div>
     </main>
@@ -95,26 +95,24 @@
 
     <script src="js/main.js"></script>
     <script>
-        // Logika Pengambil Data untuk Detail
-        async function renderDetail() {
+        // Fungsi Inisialisasi Halaman Detail
+        async function initPage() {
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
-            
-            const response = await fetch('data/post.json');
-            const data = await response.json();
-            const post = data.find(p => p.id == id);
+            const base = getBasePath();
+
+            // post.json sudah diload oleh fetchData() di main.js
+            const post = allPosts.find(p => p.id == id);
 
             if (!post) {
-                window.location.href = 'index.html';
+                window.location.href = base + 'index.html';
                 return;
             }
 
-            // Update Metadata Browser
-            document.title = `${post.title} - Streaming YamiHub`;
-
-            // Fill UI
+            // Update UI
+            document.title = `${post.title} - YamiHub`;
             document.getElementById('det-title').innerText = post.title;
-            document.getElementById('det-release-top').innerText = post.release;
+            document.getElementById('det-update-top').innerText = post.release;
             document.getElementById('det-cover').src = post.cover;
             document.getElementById('det-rating').innerText = post.rating;
             document.getElementById('det-video').src = post.video_url;
@@ -123,32 +121,30 @@
             document.getElementById('det-duration').innerText = post.duration;
             document.getElementById('det-country').innerText = post.country;
 
-            // List Items (Genre & Stars)
-            document.getElementById('det-genre').innerHTML = post.genre.map(g => `<a href="pages/genre.html?name=${g}" class="hover:underline">${g}</a>`).join(', ');
-            document.getElementById('det-artist').innerHTML = post.artist.map(a => `<a href="pages/artist.html?name=${a}" class="hover:underline">${a}</a>`).join(', ');
+            // Linkable Info
+            document.getElementById('det-genre').innerHTML = post.genre.map(g => `<a href="${base}pages/genre.html?name=${g}" class="hover:underline">${g}</a>`).join(', ');
+            document.getElementById('det-artist').innerHTML = post.artist.map(a => `<a href="${base}pages/artist.html?name=${a}" class="hover:underline">${a}</a>`).join(', ');
 
-            // Bookmark Button Toggle
+            // Bookmark Button Logic
             const favBtn = document.getElementById('det-fav-btn');
             favBtn.onclick = () => toggleBookmark(post.id);
             
-            let favs = JSON.parse(localStorage.getItem('yamihub_fav')) || [];
+            const favs = JSON.parse(localStorage.getItem('yamihub_fav')) || [];
             if (favs.includes(post.id)) {
-                favBtn.innerHTML = "<span>❤️</span> Bookmarked";
+                favBtn.innerHTML = "<span>❤️</span> SUDAH DI BOOKMARK";
                 favBtn.classList.replace('bg-amber-700', 'bg-rose-600');
             }
 
-            // Render Related
+            // Render Related Posts (Random 4)
             const relatedGrid = document.getElementById('related-grid');
-            const relatedData = data.filter(p => p.id !== post.id).slice(0, 4);
+            const relatedData = allPosts.filter(p => p.id !== post.id).sort(() => 0.5 - Math.random()).slice(0, 4);
             relatedGrid.innerHTML = relatedData.map(p => `
-                <a href="/detail.html?id=${p.id}" class="block group">
-                    <img src="${p.cover}" class="w-full aspect-[2/3] object-cover rounded-lg glass group-hover:scale-105 transition-all">
-                    <p class="text-[10px] mt-2 line-clamp-2 leading-tight">${p.title}</p>
+                <a href="${base}detail.html?id=${p.id}" class="block group">
+                    <img src="${p.cover}" class="w-full aspect-[2/3] object-cover rounded-xl glass group-hover:scale-105 transition-all duration-500">
+                    <p class="text-[9px] mt-2 line-clamp-2 leading-tight font-bold uppercase tracking-tighter opacity-60 group-hover:opacity-100">${p.title}</p>
                 </a>
             `).join('');
         }
-
-        window.onload = renderDetail;
     </script>
 </body>
 </html>
