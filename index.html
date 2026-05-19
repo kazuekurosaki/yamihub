@@ -2,57 +2,64 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO Meta Tags -->
-    <title>YamiHub - Nonton Streaming Film & Video Premium</title>
-    <meta name="description" content="YamiHub adalah platform streaming video premium dengan tampilan modern Glassmorphism. Tersedia berbagai genre film, list artis, dan daftar negara terlengkap.">
-    <meta name="keywords" content="streaming, nonton film, glassmorphism, yamihub, video player">
-    <meta name="author" content="YamiHub Team">
+    <!-- SEO Master -->
+    <title>YamiHub - Premium Glassmorphism Streaming Platform</title>
+    <meta name="description" content="Nonton streaming video terlengkap dengan kualitas HD. Fitur Dark Mode, SFW/NSFW, dan daftar artis terlengkap.">
+    <meta name="keywords" content="streaming, nonton online, film terbaru, yamihub, glassmorphism">
 
-    <!-- Styles -->
+    <!-- CSS & Framework -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="dark-mode">
 
-    <!-- Header Injection -->
+    <!-- Placeholder Header (Diisi oleh main.js) -->
     <div id="header-placeholder"></div>
 
-    <!-- Hero Section (Optional) -->
-    <section class="container mx-auto px-4 mt-8">
-        <div class="glass p-8 text-center md:text-left md:flex items-center justify-between overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-rose-600 mb-2">SELAMAT DATANG!</h2>
-                <p class="text-sm opacity-70 max-w-md">Nikmati ribuan konten streaming eksklusif dengan kualitas HD dan akses super cepat.</p>
+    <!-- Hero Section -->
+    <header class="container mx-auto px-4 mt-6">
+        <div class="glass p-8 md:p-12 relative overflow-hidden group">
+            <div class="relative z-10 max-w-2xl">
+                <h2 class="text-3xl md:text-5xl font-black text-rose-600 tracking-tighter mb-4">EXPLORE PREMIUM CONTENT</h2>
+                <p class="text-xs md:text-sm opacity-60 leading-relaxed mb-6">Nikmati pengalaman menonton dengan UI Glassmorphism yang modern, cepat, dan responsif di semua perangkat.</p>
+                <div class="flex gap-3">
+                    <a href="#post-grid" class="bg-rose-600 text-white px-6 py-2.5 rounded-full text-[11px] font-bold shadow-lg shadow-rose-900/40 hover:scale-105 transition">MULAI NONTON</a>
+                </div>
             </div>
-            <div class="absolute right-0 top-0 opacity-10 pointer-events-none">
-                <svg width="400" height="400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 14.5v-9l6 4.5-6 4.5z"/></svg>
+            <!-- Dekorasi Ikon Belakang -->
+            <div class="absolute right-[-20px] bottom-[-20px] opacity-5 pointer-events-none group-hover:scale-110 transition duration-700">
+                <svg width="300" height="300" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 14.5v-9l6 4.5-6 4.5z"/></svg>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Main Content: Video Grid -->
-    <main class="container mx-auto px-4 mt-10">
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 mt-10 min-h-screen">
+        <!-- Label Section -->
         <div class="flex items-center justify-between mb-6 border-l-4 border-rose-600 pl-4">
-            <h2 class="text-xl font-bold tracking-tight uppercase">Update Terbaru</h2>
-            <span class="text-[10px] opacity-50 uppercase">Auto Updated</span>
+            <div>
+                <h2 class="text-xl font-black tracking-tighter uppercase italic">Terbaru & Populer</h2>
+                <p class="text-[9px] opacity-40 uppercase tracking-widest">Update harian konten terbaik</p>
+            </div>
         </div>
 
-        <!-- Grid Video -->
+        <!-- Grid Post (Diisi oleh main.js) -->
         <div id="post-grid" class="post-grid">
-            <!-- Konten diisi otomatis oleh js/main.js -->
+            <!-- Loading State -->
+            <div class="col-span-full py-20 text-center opacity-20 italic">Memuat konten...</div>
         </div>
 
-        <!-- Unlimited Pagination Button -->
-        <div class="text-center mt-12 mb-20">
-            <button id="load-more-btn" onclick="loadMore()" class="px-10 py-3 glass bg-rose-600/20 border-rose-600/30 text-rose-500 rounded-full font-bold hover:bg-rose-600 hover:text-white transition-all shadow-xl">
-                LOAD MORE CONTENT
+        <!-- Pagination Button -->
+        <div class="text-center mt-14 mb-20">
+            <button id="load-more-btn" onclick="currentLimit += 10; renderGrid()" class="px-12 py-3.5 glass bg-rose-600/10 border-rose-600/20 text-rose-500 rounded-full text-[11px] font-black tracking-widest hover:bg-rose-600 hover:text-white transition-all shadow-2xl">
+                TAMPILKAN LEBIH BANYAK
             </button>
         </div>
     </main>
 
-    <!-- Footer Injection -->
+    <!-- Placeholder Footer (Diisi oleh main.js) -->
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
