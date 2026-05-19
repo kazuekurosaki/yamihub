@@ -1,99 +1,112 @@
-/* Import Font Premium */
+/* Import Font dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Variabel Utama */
+/* Pengaturan Variabel Warna */
 :root {
-    --primary-color: #e11d48; /* Rose 600 */
-    --accent-color: #d97706;  /* Amber 600 */
+    --primary: #e11d48;       /* Rose 600 */
+    --accent: #d97706;        /* Amber 600 */
     --bg-dark: #0b0f19;       /* Slate 950 */
     --bg-light: #f8fafc;      /* Slate 50 */
-    --glass-white: rgba(255, 255, 255, 0.05);
-    --glass-black: rgba(0, 0, 0, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-dark: rgba(255, 255, 255, 0.03);
+    --card-light: rgba(255, 255, 255, 0.8);
+    --border-glass: rgba(255, 255, 255, 0.1);
 }
 
-/* Reset & Dasar */
+/* Reset Dasar */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     transition: background 0.4s ease, color 0.4s ease;
-    line-height: 1.6;
+    line-height: 1.5;
     overflow-x: hidden;
 }
 
-/* Mode Gelap (Default) */
+/* --- Theme Mode Management --- */
 body.dark-mode {
     background-color: var(--bg-dark);
-    color: #e2e8f0;
+    color: #f1f5f9;
 }
 
-/* Mode Terang */
 body.light-mode {
     background-color: var(--bg-light);
     color: #1e293b;
 }
 
-/* Glassmorphism Reusable Class */
+/* --- Glassmorphism UI Components --- */
 .glass {
-    background: var(--glass-white);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 1rem;
+    background: var(--card-dark);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: 1.25rem;
 }
 
 .light-mode .glass {
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--card-light);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* Grid & Post Card */
+/* --- Responsivitas Grid (Mobile: 2, Desktop: 5) --- */
 .post-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Mobile: 2 Kolom */
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr); /* Default Mobile: 2 Kolom */
+    gap: 12px;
 }
 
 @media (min-width: 768px) {
     .post-grid {
-        grid-template-columns: repeat(5, 1fr); /* Desktop: 5 Kolom */
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
+@media (min-width: 1024px) {
+    .post-grid {
+        grid-template-columns: repeat(5, 1fr); /* Desktop: 5 Kolom */
+        gap: 20px;
+    }
+}
+
+/* --- Post Card Design --- */
 .post-card {
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .post-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
 .post-card img {
     width: 100%;
     aspect-ratio: 2/3;
     object-fit: cover;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
+    transition: transform 0.5s ease;
 }
 
-/* Hover Play Effect */
+.post-card:hover img {
+    transform: scale(1.05);
+}
+
+/* --- Hover Play Overlay --- */
 .play-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
 }
 
 .post-card:hover .play-overlay {
@@ -101,81 +114,106 @@ body.light-mode {
 }
 
 .play-icon {
-    background: var(--primary-color);
+    background: var(--primary);
     color: white;
-    padding: 15px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
-    box-shadow: 0 0 20px var(--primary-color);
+    box-shadow: 0 0 25px var(--primary);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
 }
 
-/* Table Info di Detail Page (Sesuai Gambar) */
+.post-card:hover .play-icon {
+    transform: scale(1);
+}
+
+/* --- Info Table (Sesuai Referensi Gambar) --- */
 .info-table {
     width: 100%;
     border-collapse: collapse;
 }
 
 .info-table td {
-    padding: 12px;
-    border-bottom: 1px solid var(--glass-border);
-    font-size: 0.9rem;
+    padding: 14px;
+    border-bottom: 1px solid var(--border-glass);
+    font-size: 0.875rem;
 }
 
 .info-label {
-    width: 30%;
-    opacity: 0.6;
+    width: 35%;
+    opacity: 0.5;
+    font-weight: 400;
 }
 
 .info-value {
-    width: 70%;
-    border-left: 1px solid var(--glass-border);
+    width: 65%;
+    border-left: 1px solid var(--border-glass);
     padding-left: 20px !important;
 }
 
 .text-amber {
-    color: var(--accent-color);
+    color: var(--accent);
     font-weight: 600;
 }
 
-/* Badge Quality */
 .badge-hd {
-    background-color: var(--accent-color);
+    background-color: var(--accent);
     color: #000;
     font-weight: 800;
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 4px;
-    text-transform: uppercase;
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 3px;
 }
 
-/* Hamburger Menu & Navigation */
-.nav-link {
-    transition: color 0.3s ease;
-    text-decoration: none;
-    color: inherit;
+/* --- Navigation & Header --- */
+.nav-link-item {
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.nav-link:hover {
-    color: var(--primary-color);
+.nav-link-item:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s;
 }
 
-/* Custom Scrollbar */
+.nav-link-item:hover:after {
+    width: 100%;
+}
+
+/* --- Custom Scrollbar --- */
 ::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: transparent;
+    width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
+    background: var(--primary);
     border-radius: 10px;
 }
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
 
-/* Animasi untuk SEO Friendly Loading */
+/* --- Animations --- */
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in {
-    animation: fadeIn 0.5s ease forwards;
+/* --- Fix for GitHub Pages (No Horizontal Scroll) --- */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
