@@ -2,61 +2,42 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist List - YamiHub</title>
+    <title>Artists - YamiHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="dark-mode">
     <div id="header-placeholder"></div>
-
-    <main class="container mx-auto px-4 py-10">
-        <div class="mb-10">
-            <h1 id="cat-title" class="text-3xl font-bold border-l-4 border-rose-600 pl-4 uppercase tracking-tighter">Artis</h1>
-            <p id="cat-desc" class="text-xs opacity-50 mt-2">Daftar pemeran dan artis populer.</p>
+    <main class="container mx-auto px-4 py-10 min-h-screen">
+        <div class="mb-10 border-l-4 border-rose-600 pl-4 text-rose-500">
+            <h1 id="cat-title" class="text-3xl font-black uppercase tracking-tighter text-current">ARTISTS</h1>
+            <p class="text-[10px] opacity-40 uppercase tracking-[0.3em] text-white">Daftar pemeran populer</p>
         </div>
-
         <div id="post-grid" class="post-grid"></div>
     </main>
-
     <div id="footer-placeholder"></div>
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
     <script>
-        async function initArtist() {
-            const params = new URLSearchParams(window.location.search);
-            const artistName = params.get('name');
-            const res = await fetch('../data/post.json');
-            const data = await res.json();
+        async function initPage() {
+            const name = new URLSearchParams(window.location.search).get('name');
             const grid = document.getElementById('post-grid');
-
-            if (artistName) {
-                document.getElementById('cat-title').innerText = "Artis: " + artistName;
-                const filtered = data.filter(p => p.artist.includes(artistName));
-                renderGrid(filtered);
+            if (name) {
+                document.getElementById('cat-title').innerText = "ARTIST: " + name;
+                renderGrid(allPosts.filter(p => p.artist.includes(name)));
             } else {
-                document.getElementById('cat-title').innerText = "Daftar Artis";
-                
-                const artistCounts = {};
-                data.forEach(post => {
-                    post.artist.forEach(a => {
-                        artistCounts[a] = (artistCounts[a] || 0) + 1;
-                    });
-                });
-
+                const counts = {};
+                allPosts.forEach(p => p.artist.forEach(a => counts[a] = (counts[a] || 0) + 1));
                 grid.classList.replace('post-grid', 'grid');
-                grid.classList.add('grid-cols-1', 'md:grid-cols-3', 'lg:grid-cols-4', 'gap-4');
-                
-                grid.innerHTML = Object.keys(artistCounts).sort().map(a => `
-                    <a href="?name=${a}" class="glass p-4 flex justify-between items-center hover:bg-rose-600 transition-all group">
-                        <span class="font-semibold text-sm uppercase tracking-wider">${a}</span>
-                        <span class="bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-[10px] px-2 py-1 rounded-md font-bold">
-                            ${artistCounts[a]} VIDEOS
-                        </span>
+                grid.classList.add('grid-cols-2', 'md:grid-cols-4', 'gap-4');
+                grid.innerHTML = Object.keys(counts).sort().map(a => `
+                    <a href="?name=${a}" class="glass p-4 text-center hover:border-rose-600 transition-all shadow-lg">
+                        <div class="w-12 h-12 bg-rose-600 rounded-full mx-auto mb-3 flex items-center justify-center font-black text-white uppercase">${a[0]}</div>
+                        <div class="font-bold text-[10px] uppercase tracking-tighter mb-1">${a}</div>
+                        <div class="text-[8px] opacity-40">${counts[a]} VIDEOS</div>
                     </a>
                 `).join('');
             }
         }
-        window.onload = initArtist;
     </script>
 </body>
 </html>
