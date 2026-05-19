@@ -12,12 +12,12 @@ async function injectIncludes() {
     const footerPlaceholder = document.getElementById('footer-placeholder');
 
     if (headerPlaceholder) {
-        const res = await fetch('/includes/header.html');
+        const res = await fetch('includes/header.html');
         headerPlaceholder.innerHTML = await res.text();
         updateNSFWButton(); // Update teks tombol NSFW setelah header masuk
     }
     if (footerPlaceholder) {
-        const res = await fetch('/includes/footer.html');
+        const res = await fetch('includes/footer.html');
         footerPlaceholder.innerHTML = await res.text();
     }
 }
@@ -25,12 +25,12 @@ async function injectIncludes() {
 // 2. Data Master Fetcher
 async function fetchData() {
     try {
-        const response = await fetch('/data/post.json');
+        const response = await fetch('data/post.json');
         allPosts = await response.json();
         
         // Cek halaman apa yang sedang dibuka
         const path = window.location.pathname;
-        if (path.includes('index.html') || path === '/' || path.includes('yamihub/')) {
+        if (path.includes('index.html') || path === '/' || path.includes('yamihub')) {
             renderGrid();
         }
     } catch (error) {
@@ -54,7 +54,7 @@ function renderGrid(dataToRender = null) {
 
     container.innerHTML = limited.map(post => `
         <div class="post-card glass fade-in">
-            <a href="/detail.html?id=${post.id}">
+            <a href="detail.html?id=${post.id}">
                 <div class="relative">
                     <img src="${post.cover}" alt="${post.title}" loading="lazy">
                     <div class="play-overlay">
