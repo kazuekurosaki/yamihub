@@ -30,7 +30,7 @@ async function fetchData() {
         
         // Cek halaman apa yang sedang dibuka
         const path = window.location.pathname;
-        if (path.includes('index.html') || path === '/' || path.includes('yamihub/')) {
+        if (path.includes('index.html') || path === '/' || path.includes('yamihub')) {
             renderGrid();
         }
     } catch (error) {
