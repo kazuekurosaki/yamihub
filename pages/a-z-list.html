@@ -25,7 +25,7 @@
     <script>
         // Logika Khusus A-Z
         async function initAZ() {
-            const res = await fetch('.../data/post.json');
+            const res = await fetch('data/post.json');
             const data = await res.json();
             // Sortir A-Z
             const sorted = data.sort((a, b) => a.title.localeCompare(b.title));
