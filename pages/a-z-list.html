@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A-Z List - YamiHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="dark-mode">
     <div id="header-placeholder"></div>
@@ -21,11 +21,11 @@
     </main>
 
     <div id="footer-placeholder"></div>
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
     <script>
         // Logika Khusus A-Z
         async function initAZ() {
-            const res = await fetch('../data/post.json');
+            const res = await fetch('data/post.json');
             const data = await res.json();
             // Sortir A-Z
             const sorted = data.sort((a, b) => a.title.localeCompare(b.title));
