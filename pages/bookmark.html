@@ -2,48 +2,39 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Bookmarks - YamiHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="dark-mode">
     <div id="header-placeholder"></div>
-
     <main class="container mx-auto px-4 py-10 min-h-screen">
         <div class="mb-10 text-center">
-            <h1 class="text-3xl font-bold text-rose-600 uppercase tracking-tighter">Koleksi Favorit</h1>
-            <p class="text-xs opacity-50 mt-2">Video yang Anda tandai untuk ditonton nanti.</p>
+            <h1 class="text-3xl font-black uppercase tracking-tighter text-rose-600">FAVORITE LIST</h1>
+            <p class="text-[10px] opacity-40 uppercase tracking-[0.4em]">Koleksi video pilihan Anda</p>
         </div>
 
-        <!-- Grid Container -->
         <div id="post-grid" class="post-grid"></div>
 
         <!-- Empty State -->
-        <div id="empty-state" class="hidden text-center py-20">
-            <div class="text-6xl mb-4">Empty</div>
-            <p class="opacity-50">Belum ada video yang di-bookmark.</p>
-            <a href="/index.html" class="inline-block mt-6 px-6 py-2 border border-rose-500 text-rose-500 rounded-full hover:bg-rose-500 hover:text-white transition">Cari Video</a>
+        <div id="empty-msg" class="hidden py-20 text-center fade-in">
+            <div class="text-5xl mb-4 opacity-20">📂</div>
+            <p class="opacity-40 italic text-sm">Belum ada video yang di-bookmark.</p>
+            <a href="../index.html" class="inline-block mt-6 px-8 py-2.5 border border-rose-600 text-rose-500 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition">Cari Video</a>
         </div>
     </main>
-
     <div id="footer-placeholder"></div>
     <script src="../js/main.js"></script>
     <script>
-        async function initBookmark() {
+        async function initPage() {
             const favIds = JSON.parse(localStorage.getItem('yamihub_fav')) || [];
             if (favIds.length === 0) {
-                document.getElementById('empty-state').classList.remove('hidden');
+                document.getElementById('empty-msg').classList.remove('hidden');
                 return;
             }
-
-            const res = await fetch('../data/post.json');
-            const data = await res.json();
-            
-            const filtered = data.filter(p => favIds.includes(p.id));
-            renderGrid(filtered);
+            const bookmarkedData = allPosts.filter(p => favIds.includes(p.id));
+            renderGrid(bookmarkedData);
         }
-        window.onload = initBookmark;
     </script>
 </body>
 </html>
