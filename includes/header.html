@@ -1,28 +1,28 @@
 <nav class="glass sticky top-0 z-50 px-4 py-3 shadow-2xl">
     <div class="container mx-auto flex items-center justify-between">
-        <!-- Logo & Hamburger -->
-        <div class="flex items-center gap-4">
+        <!-- Logo & Hamburger Mobile -->
+        <div class="flex items-center gap-3">
             <button onclick="toggleMobileMenu()" class="md:hidden p-2 glass rounded-lg text-rose-500">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
-            <a href="index.html" class="text-2xl font-bold text-rose-600 tracking-tighter">
+            <a href="index.html" class="text-2xl font-bold text-rose-600 tracking-tighter logo-link">
                 YAMI<span class="text-current dark:text-white">HUB</span>
             </a>
         </div>
 
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-6 text-[13px] font-bold tracking-wide nav-links">
             <a href="index.html" class="hover:text-rose-500 transition">HOME</a>
             <a href="pages/a-z-list.html" class="hover:text-rose-500 transition">A-Z LIST</a>
             <a href="pages/genre.html" class="hover:text-rose-500 transition">GENRE</a>
             <a href="pages/artist.html" class="hover:text-rose-500 transition">ARTIST</a>
             <a href="pages/country.html" class="hover:text-rose-500 transition">COUNTRY</a>
-            <a href="pages/bookmark.html" class="text-rose-500">❤️ BOOKMARK</a>
+            <a href="pages/bookmark.html" class="text-rose-500 flex items-center gap-1">❤️ BOOKMARK</a>
         </div>
 
         <!-- Action Buttons -->
         <div class="flex items-center gap-2">
-            <button onclick="toggleNSFW()" id="nsfw-indicator" class="text-[10px] px-2 py-1.5 rounded-full font-bold transition-all shadow-lg"></button>
+            <button onclick="toggleNSFW()" id="nsfw-indicator" class="text-[9px] px-2 py-1.5 rounded-full font-black transition-all shadow-lg"></button>
             <button onclick="toggleTheme()" class="p-2 glass rounded-full hover:scale-110 transition">🌓</button>
             <button onclick="toggleSearch()" class="p-2 glass rounded-full hover:scale-110 transition">🔍</button>
         </div>
@@ -30,19 +30,20 @@
 
     <!-- Search Overlay -->
     <div id="search-overlay" class="hidden mt-3 fade-in">
-        <div class="relative max-w-xl mx-auto">
-            <input type="text" id="main-search" onkeyup="searchEngine(this.value)" placeholder="Cari judul, artis, atau genre..." 
+        <div class="relative max-w-2xl mx-auto px-4">
+            <input type="text" id="main-search" onkeyup="searchEngine(this.value)" placeholder="Cari judul, genre, atau artis..." 
             class="w-full bg-black/20 border border-rose-500/30 outline-none p-3 rounded-xl text-sm backdrop-blur-md focus:border-rose-500 transition">
         </div>
     </div>
 
-    <!-- Mobile Slide Menu -->
-    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full glass flex flex-col p-6 gap-4 font-bold md:hidden shadow-2xl fade-in">
+    <!-- Mobile Pop-out Menu -->
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full glass flex flex-col p-6 gap-4 font-bold md:hidden shadow-2xl fade-in nav-links">
         <a href="index.html">HOME</a>
         <a href="pages/a-z-list.html">A-Z LIST</a>
         <a href="pages/genre.html">GENRE</a>
         <a href="pages/artist.html">ARTIST</a>
         <a href="pages/country.html">COUNTRY</a>
+        <hr class="opacity-10">
         <a href="pages/bookmark.html" class="text-rose-500">MY BOOKMARKS</a>
     </div>
 </nav>
