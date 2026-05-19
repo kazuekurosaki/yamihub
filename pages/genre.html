@@ -3,66 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genre List - YamiHub</title>
+    <title>Genre - YamiHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="dark-mode">
     <div id="header-placeholder"></div>
 
-    <main class="container mx-auto px-4 py-10">
-        <div class="mb-10">
-            <h1 id="cat-title" class="text-3xl font-bold border-l-4 border-rose-600 pl-4 uppercase tracking-tighter">Genre</h1>
-            <p id="cat-desc" class="text-xs opacity-50 mt-2">Telusuri koleksi berdasarkan kategori genre.</p>
+    <main class="container mx-auto px-4 py-10 min-h-screen">
+        <div class="mb-10 border-l-4 border-rose-600 pl-4">
+            <h1 id="cat-title" class="text-3xl font-black uppercase tracking-tighter">GENRES</h1>
+            <p id="cat-desc" class="text-[10px] opacity-40 uppercase tracking-[0.3em]">Eksplorasi berdasarkan kategori</p>
         </div>
 
-        <!-- Container Utama -->
         <div id="post-grid" class="post-grid"></div>
     </main>
 
     <div id="footer-placeholder"></div>
     <script src="../js/main.js"></script>
     <script>
-        async function initGenre() {
+        async function initPage() {
             const params = new URLSearchParams(window.location.search);
-            const genreName = params.get('name');
-            const res = await fetch('../data/post.json');
-            const data = await res.json();
-
+            const name = params.get('name');
             const grid = document.getElementById('post-grid');
 
-            if (genreName) {
-                // Tampilan daftar video berdasarkan genre terpilih
-                document.getElementById('cat-title').innerText = "Genre: " + genreName;
-                const filtered = data.filter(p => p.genre.includes(genreName));
+            if (name) {
+                document.getElementById('cat-title').innerText = "GENRE: " + name;
+                const filtered = allPosts.filter(p => p.genre.includes(name));
                 renderGrid(filtered);
             } else {
-                // Tampilan daftar Genre dengan Jumlah Postingan
-                document.getElementById('cat-title').innerText = "Semua Genre";
+                // Tampilan Daftar Kategori + Counter
+                const counts = {};
+                allPosts.forEach(p => p.genre.forEach(g => counts[g] = (counts[g] || 0) + 1));
                 
-                // Hitung jumlah postingan per genre
-                const genreCounts = {};
-                data.forEach(post => {
-                    post.genre.forEach(g => {
-                        genreCounts[g] = (genreCounts[g] || 0) + 1;
-                    });
-                });
-
-                // Render list genre dengan badge jumlah
                 grid.classList.replace('post-grid', 'grid');
-                grid.classList.add('grid-cols-1', 'md:grid-cols-3', 'lg:grid-cols-4', 'gap-4');
-                
-                grid.innerHTML = Object.keys(genreCounts).sort().map(g => `
-                    <a href="?name=${g}" class="glass p-4 flex justify-between items-center hover:bg-rose-600 transition-all group">
-                        <span class="font-semibold text-sm uppercase tracking-wider">${g}</span>
-                        <span class="bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-[10px] px-2 py-1 rounded-md font-bold transition-colors">
-                            ${genreCounts[g]} POSTS
-                        </span>
+                grid.classList.add('grid-cols-1', 'md:grid-cols-3', 'gap-4');
+                grid.innerHTML = Object.keys(counts).sort().map(g => `
+                    <a href="?name=${g}" class="glass p-5 flex justify-between items-center hover:bg-rose-600 transition-all group shadow-xl">
+                        <span class="font-bold text-xs uppercase tracking-widest">${g}</span>
+                        <span class="bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-[9px] px-2 py-1 rounded font-black">${counts[g]} POSTS</span>
                     </a>
                 `).join('');
             }
         }
-        window.onload = initGenre;
     </script>
 </body>
 </html>
